@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import pl.globallogic.type.SizeType;
 
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class SmokeTest extends BaseTest {
@@ -147,10 +146,10 @@ public class SmokeTest extends BaseTest {
         Assert.assertTrue(landingPage.isVisibleAlertSuccess());
     }
 
-    @Test
-    public void shouldEnterInvalidEmailAddress() {
+    @Test(dataProvider = "invalid-emails")
+    public void shouldEnterInvalidEmailAddress(String invalidEmail) {
         landingPage.visit(host);
-        landingPage.completeNewsletter(INVALID_EMAIL);
+        landingPage.completeNewsletter(invalidEmail);
         Assert.assertTrue(landingPage.isVisibleAlertDanger());
     }
 
@@ -198,7 +197,7 @@ public class SmokeTest extends BaseTest {
     @Test
     public void shouldReceiveEmail() {
         mailReceiverSystemPage.visit(temporaryMailHost);
-        mailReceiverSystemPage.accept();
+        mailReceiverSystemPage.acceptPersonalData();
 
         String email= mailReceiverSystemPage.getEmailAddress();
         landingPage.visit(host);
@@ -211,4 +210,5 @@ public class SmokeTest extends BaseTest {
         //mailReceiverSystemPage.checkMailFromShop();
         Assert.assertTrue(mailReceiverSystemPage.isDelivered());
     }
+
 }

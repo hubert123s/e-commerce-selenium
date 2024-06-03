@@ -16,7 +16,7 @@ public class BasePage {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
-    protected final By productNameLocator= By.xpath("//ul[@class='product_list grid row']//li//h5[@itemprop='name']//a[@class='product-name']");
+    protected final By productNameLocator = By.xpath("//ul[@class='product_list grid row']//li//h5[@itemprop='name']//a[@class='product-name']");
     protected final By productPricesLocator = By.xpath("//div[@class='right-block']//div[@class='content_price']//span[@class='price product-price']");
     protected final By alertSuccessLocator = By.cssSelector("p.alert.alert-success");
     protected final By alertDangerLocator = By.cssSelector("p.alert.alert-danger");
@@ -74,7 +74,7 @@ public class BasePage {
         logger.info("Verify visibility of element located by {}", locator);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        } catch (TimeoutException ex){
+        } catch (TimeoutException ex) {
             logger.warn("Timeout of {} wait for {}", timeout, locator);
             return false;
         }
@@ -87,7 +87,7 @@ public class BasePage {
         }
     }
 
-    public int extractNumberFromText(String text){
+    public int extractNumberFromText(String text) {
         String[] words = text.split(" ");
 
         // Iterate through words to find the number
@@ -99,20 +99,23 @@ public class BasePage {
         }
         return Integer.parseInt(stringBuilder.toString());
     }
-    public List<Integer>getAllPrices(){
+
+    public List<Integer> getAllPrices() {
         List<Integer> prices = new ArrayList<>();
-        for(WebElement element: findElementsBy(productPricesLocator)){
-            System.out.println("tekst"+ element.getText());
-            String value = element.getText().replace("$","").trim();
+        for (WebElement element : findElementsBy(productPricesLocator)) {
+            System.out.println("tekst" + element.getText());
+            String value = element.getText().replace("$", "").trim();
             prices.add(Integer.valueOf(value));
         }
         return prices;
     }
-    public void scrollTo(By locator){
+
+    public void scrollTo(By locator) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement element = driver.findElement(locator);
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
+
     public static String generateRandomEmail(int length) {
         String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
         String email = "";

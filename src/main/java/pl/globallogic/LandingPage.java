@@ -1,6 +1,5 @@
 package pl.globallogic;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -10,9 +9,9 @@ public class LandingPage extends BasePage {
     protected final By searchButtonLocator = By.cssSelector("button.btn.btn-default.button-search");
     protected final By newsletterFieldLocator = By.id("newsletter-input");
     protected final By newsletterButtonLocator = By.cssSelector("button.btn.btn-default.button.button-small");
-    protected final String successFullySubscribedNewsletterMessage =" Newsletter : You have successfully subscribed to this newsletter.";
+    protected final String successFullySubscribedNewsletterMessage = " Newsletter : You have successfully subscribed to this newsletter.";
     protected final String emailIsAlreadyRegisteredMessage = "Newsletter : This email address is already registered.";
-    protected final String invalidEmailAddressMessage= "Newsletter : This email address is already registered.";
+    protected final String invalidEmailAddressMessage = "Newsletter : This email address is already registered.";
     protected final By termsAndConditionsOfUseLocator = By.linkText("Terms and conditions of use");
     protected final By returnToHomeButtonLocator = By.cssSelector("i.icon-home");
     protected final By signInButtonLocator = By.cssSelector("a.login");
@@ -34,6 +33,7 @@ public class LandingPage extends BasePage {
         type(newsletterFieldLocator, generateRandomEmail(LENGTH_OF_EMAIL));
         click(newsletterButtonLocator);
     }
+
     public void completeNewsletter(String generatedEmail) {
         type(newsletterFieldLocator, generatedEmail);
         click(newsletterButtonLocator);
@@ -43,22 +43,27 @@ public class LandingPage extends BasePage {
         System.out.println(findElementBy(alertSuccessLocator).getText());
         return isDisplayed(alertSuccessLocator);
     }
-    public void typeSameEmailAddressTwice(){
+
+    public void typeSameEmailAddressTwice() {
         String generatedEmail = generateRandomEmail(LENGTH_OF_EMAIL);
         completeNewsletter(generatedEmail);
         driver.navigate().back();
         completeNewsletter(generatedEmail);
     }
+
     public boolean isVisibleAlertDanger() {
         System.out.println(findElementBy(alertDangerLocator).getText());
         return isDisplayed(alertDangerLocator);
     }
+
     public boolean isVisibleAlertDangerDiv() {
         return isDisplayed(alertDangerDIVLocator);
     }
-    public void redirectToSocialLink(By locator){
+
+    public void redirectToSocialLink(By locator) {
         click(locator);
     }
+
     public boolean isRedirected(String expectedURL) {
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
@@ -69,19 +74,24 @@ public class LandingPage extends BasePage {
         }
         return false;
     }
-    public void clickToRegulations(){
+
+    public void clickToRegulations() {
         click(termsAndConditionsOfUseLocator);
     }
-    public void clickToReturnToHome(){
+
+    public void clickToReturnToHome() {
         click(returnToHomeButtonLocator);
     }
-    public boolean isHomePage(){
+
+    public boolean isHomePage() {
         return driver.getCurrentUrl().equals(host);
     }
-    public void clickSignIn(){
+
+    public void clickSignIn() {
         click(signInButtonLocator);
     }
-    public void clickContactUs(){
+
+    public void clickContactUs() {
         click(contactUsButtonLocator);
     }
 

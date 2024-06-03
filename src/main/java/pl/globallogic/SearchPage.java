@@ -7,44 +7,53 @@ import pl.globallogic.type.SortByType;
 
 import java.util.List;
 
-public class SearchPage extends BasePage{
+public class SearchPage extends BasePage {
     protected final By sortByButtonLocator = By.id("selectProductSort");
-    protected final By notFoundResultMessage =By.cssSelector("p.alert.alert-warning");
-    protected final By productImageLinkLocator =By.cssSelector("a.product_img_link");
+    protected final By notFoundResultMessage = By.cssSelector("p.alert.alert-warning");
+    protected final By productImageLinkLocator = By.cssSelector("a.product_img_link");
     protected final By cartButtonLocator = By.cssSelector("a[title='View my shopping cart']");
     protected final By viewedProductLocator = By.xpath("//div[@id='viewed-products_block_left']//div[@class='product-content']//h5/a[@class='product-name']");
 
     public SearchPage(WebDriver driver) {
         super(driver);
     }
-    private WebElement findFirstElement(){
+
+    private WebElement findFirstElement() {
         return findElementsBy(productNameLocator).get(0);
     }
-    public boolean isEqualToSearchQuery(String query){
+
+    public boolean isEqualToSearchQuery(String query) {
         return findFirstElement().getText().toLowerCase().contains(query.toLowerCase());
     }
-    public boolean isNotFoundResultForYourSearch(){
+
+    public boolean isNotFoundResultForYourSearch() {
         findElementBy(notFoundResultMessage).getText();
         return isDisplayed(notFoundResultMessage);
     }
-    public void sortByPriceAscending(){
+
+    public void sortByPriceAscending() {
         findElementBy(sortByButtonLocator).sendKeys(SortByType.LOWEST_FIRST.toString());
     }
-    public List<Integer> sortedPrices(List<Integer> prices){
+
+    public List<Integer> sortedPrices(List<Integer> prices) {
         return prices.stream()
                 .sorted()
                 .toList();
     }
-    public void clickToCart(){
+
+    public void clickToCart() {
         click(cartButtonLocator);
     }
-    public void clickToProductImageLink(){
+
+    public void clickToProductImageLink() {
         click(productImageLinkLocator);
     }
-    public String getFirstViewedProduct(){
-        return  findElementBy(viewedProductLocator).getText();
+
+    public String getFirstViewedProduct() {
+        return findElementBy(viewedProductLocator).getText();
     }
-    public void scrollToPrice(){
+
+    public void scrollToPrice() {
         scrollTo(productPricesLocator);
     }
 }

@@ -17,20 +17,24 @@ public class MailReceiverSystemPage extends BasePage {
         this.host = host;
     }
 
-    public void accept(){
-        findElementBy(consentPersonalData).click();
+    public void acceptPersonalData() {
+        click(consentPersonalData);
     }
+
     public String getEmailAddress() {
         return findElementBy(addressEmailLocator).getAttribute("value");
     }
-    public void checkMailFromShop(){
+
+    public void checkMailFromShop() {
         click(shopMailLocator);
     }
-    public boolean isDelivered(){
-        return isDisplayed(shopMailLocator);
+
+    public boolean isDelivered() {
+        return findElementBy(shopMailLocator).isEnabled();
     }
-    public String getLinkToEmailMessage(){
+
+    public String getLinkToEmailMessage() {
         String id = findElementBy(shopMailLocator).getAttribute("id");
-        return "https://tempail.com/en/"+id;
+        return "https://tempail.com/en/" + id;
     }
 }

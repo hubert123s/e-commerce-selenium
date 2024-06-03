@@ -24,7 +24,6 @@ public class BaseTest {
     protected final String temporaryMailHost = "https://tempail.com/";
     protected String query = "dress";
     protected String invalidQuery = "d";
-    protected static final String INVALID_EMAIL = "usernameemail.com";// TODO dataprovider
     protected LandingPage landingPage;
     protected SearchPage searchPage;
     protected CatalogPage catalogPage;
@@ -32,8 +31,6 @@ public class BaseTest {
     protected AuthenticationPage authenticationPage;
     protected MailReceiverSystemPage mailReceiverSystemPage;
     protected CustomerServicePage customerServicePage;
-
-
     @BeforeMethod
     public void testSetup() {
         System.out.println(System.getProperty("browser"));
@@ -77,6 +74,15 @@ public class BaseTest {
         return new Object[][]{
                 {"li.facebook", "facebook.com/prestashop"},
                 {"li.twitter", "x.com/prestashop"}
+        };
+    }
+    @DataProvider(name = "invalid-emails")
+    public Object[][] invalidEmails() {
+        return new Object[][]{
+                {"usernameemail.com"},
+                {"username@emailcom"},
+                {"@email.com"},
+                {"@emailcom"}
         };
     }
 }
