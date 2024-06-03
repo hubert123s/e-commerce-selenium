@@ -16,6 +16,7 @@ public class LandingPage extends BasePage {
     protected final By termsAndConditionsOfUseLocator = By.linkText("Terms and conditions of use");
     protected final By returnToHomeButtonLocator = By.cssSelector("i.icon-home");
     protected final By signInButtonLocator = By.cssSelector("a.login");
+    protected final By contactUsButtonLocator = By.xpath("//div[@id='contact-link']/a[text()='Contact us']");
     private static final int LENGTH_OF_EMAIL = 7;
 
 
@@ -80,6 +81,8 @@ public class LandingPage extends BasePage {
     public void clickSignIn(){
         click(signInButtonLocator);
     }
-
+    public void clickContactUs(){
+        click(contactUsButtonLocator);
+    }
 
 }

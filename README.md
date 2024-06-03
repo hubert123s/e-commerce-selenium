@@ -4,7 +4,7 @@ http://www.automationpractice.pl/ - target page
 • Selenium
 • TestNG
 
-Test scenarios
+#### Test scenarios
 ### Searching/filtering/sorting - catalogPage
 
 Scenario 1: Verify successful item search 
@@ -48,13 +48,12 @@ Scenario 18: Verify create account
 
 Scenario 19: Verify that social media links redirects to the target page
 
+Scenario 20: Verify contact us form with file
 
 TODO 
 
 Verify first item from results can be removed from the cart
 
 Verify that item review is available on the items details page
-
-Verify contact us form with file
 
 Check if the product is placed in the appropriate tab (dresses in dresses tab)

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pl.globallogic.type.SizeType;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class SmokeTest extends BaseTest {
@@ -27,15 +28,13 @@ public class SmokeTest extends BaseTest {
     // Verify if the range of price is correctly filtering
     @Test
     public void shouldRangeOfPrice() {
-
-
         catalogPage.visit(dressesCatalogPageWebsite);
         List<Integer> allPrices = catalogPage.getAllPrices();
         catalogPage.changeSliderRange();
         int[] rangeOfPrice = catalogPage.getRangeOfPrice();
         List<Integer> filteredAllPrices = catalogPage.getAllPrices();
-        List<Integer> expectedValue = catalogPage.filterInRange(allPrices,rangeOfPrice[0],rangeOfPrice[1]);
-        Assert.assertEquals(filteredAllPrices,expectedValue);
+        List<Integer> expectedValue = catalogPage.filterInRange(allPrices, rangeOfPrice[0], rangeOfPrice[1]);
+        Assert.assertEquals(filteredAllPrices, expectedValue);
     }
 
 
@@ -104,6 +103,7 @@ public class SmokeTest extends BaseTest {
         productDetailsPage.addToCard();
         Assert.assertTrue(productDetailsPage.isVisibleIsNotEnoughProductInStockMessage());
     }
+
     // check successful compare
     @Test
     public void shouldCompareTwoProducts() {
@@ -146,6 +146,7 @@ public class SmokeTest extends BaseTest {
         landingPage.completeNewsletter();
         Assert.assertTrue(landingPage.isVisibleAlertSuccess());
     }
+
     @Test
     public void shouldEnterInvalidEmailAddress() {
         landingPage.visit(host);
@@ -177,6 +178,7 @@ public class SmokeTest extends BaseTest {
         landingPage.clickToReturnToHome();
         Assert.assertTrue(landingPage.isHomePage());
     }
+
     @Test
     public void shouldCreateAccount() {
         landingPage.visit(host);
@@ -185,13 +187,28 @@ public class SmokeTest extends BaseTest {
         Assert.assertTrue(authenticationPage.isCreatedAccount());
     }
 
-//verify that social media links redirects to the target page
-@Test(dataProvider = "social-media-links")
-public void shouldSocialMediaLinkRedirectsToTargetPage(String locator, String expectedLink) {
-    By transformedLocator = By.cssSelector(locator);
-    landingPage.visit(host);
-    landingPage.redirectToSocialLink(transformedLocator);
-    Assert.assertTrue(landingPage.isRedirected(expectedLink));
-}
+    //verify that social media links redirects to the target page
+    @Test(dataProvider = "social-media-links")
+    public void shouldSocialMediaLinkRedirectsToTargetPage(String locator, String expectedLink) {
+        By transformedLocator = By.cssSelector(locator);
+        landingPage.visit(host);
+        landingPage.redirectToSocialLink(transformedLocator);
+        Assert.assertTrue(landingPage.isRedirected(expectedLink));
+    }
+    @Test
+    public void shouldReceiveEmail() {
+        mailReceiverSystemPage.visit(temporaryMailHost);
+        mailReceiverSystemPage.accept();
 
+        String email= mailReceiverSystemPage.getEmailAddress();
+        landingPage.visit(host);
+        landingPage.clickContactUs();
+        customerServicePage.completeForm(email);
+        Assert.assertTrue(customerServicePage.hasBeenSent());
+        mailReceiverSystemPage.visit(temporaryMailHost);
+        mailReceiverSystemPage.pause(20);
+        //mailReceiverSystemPage.visit(mailReceiverSystemPage.getLinkToEmailMessage());
+        //mailReceiverSystemPage.checkMailFromShop();
+        Assert.assertTrue(mailReceiverSystemPage.isDelivered());
+    }
 }

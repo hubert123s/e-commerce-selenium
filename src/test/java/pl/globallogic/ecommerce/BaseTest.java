@@ -21,6 +21,7 @@ public class BaseTest {
     protected String host = "http://www.automationpractice.pl/index.php";
     protected final String catalogPageWebsite = "http://www.automationpractice.pl/index.php?id_category=3&controller=category";
     protected final String dressesCatalogPageWebsite = "http://www.automationpractice.pl/index.php?id_category=8&controller=category";
+    protected final String temporaryMailHost = "https://tempail.com/";
     protected String query = "dress";
     protected String invalidQuery = "d";
     protected static final String INVALID_EMAIL = "usernameemail.com";// TODO dataprovider
@@ -29,12 +30,9 @@ public class BaseTest {
     protected CatalogPage catalogPage;
     protected ProductDetailsPage productDetailsPage;
     protected AuthenticationPage authenticationPage;
+    protected MailReceiverSystemPage mailReceiverSystemPage;
+    protected CustomerServicePage customerServicePage;
 
-    @BeforeClass
-    public void setUp() {
-//        driver = new ChromeDriver();
-
-    }
 
     @BeforeMethod
     public void testSetup() {
@@ -45,6 +43,8 @@ public class BaseTest {
         catalogPage = new CatalogPage(driver, catalogPageWebsite);
         productDetailsPage = new ProductDetailsPage(driver);
         authenticationPage = new AuthenticationPage(driver);
+        mailReceiverSystemPage = new MailReceiverSystemPage(driver, temporaryMailHost);
+        customerServicePage= new CustomerServicePage(driver);
     }
 
     @AfterMethod

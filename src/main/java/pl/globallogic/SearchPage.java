@@ -14,9 +14,6 @@ public class SearchPage extends BasePage{
     protected final By cartButtonLocator = By.cssSelector("a[title='View my shopping cart']");
     protected final By viewedProductLocator = By.xpath("//div[@id='viewed-products_block_left']//div[@class='product-content']//h5/a[@class='product-name']");
 
-
-
-
     public SearchPage(WebDriver driver) {
         super(driver);
     }

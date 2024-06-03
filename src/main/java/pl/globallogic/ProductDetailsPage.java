@@ -109,6 +109,4 @@ public class ProductDetailsPage extends BasePage{
     public boolean isVisibleIsNotEnoughProductInStockMessage(){
         return isDisplayed(isNotEnoughProductInStockLocator);
     }
-
-
 }
