@@ -16,6 +16,8 @@ public class LandingPage extends BasePage {
     protected final By returnToHomeButtonLocator = By.cssSelector("i.icon-home");
     protected final By signInButtonLocator = By.cssSelector("a.login");
     protected final By contactUsButtonLocator = By.xpath("//div[@id='contact-link']/a[text()='Contact us']");
+    protected final By tshirtsButtonLocator = By.xpath("//li//a[@title='T-shirts']");
+
     private static final int LENGTH_OF_EMAIL = 7;
 
 
@@ -94,5 +96,9 @@ public class LandingPage extends BasePage {
     public void clickContactUs() {
         click(contactUsButtonLocator);
     }
+    public void clickTShirts(){
+        findElementsBy(tshirtsButtonLocator).get(1).click();
+    }
+
 
 }

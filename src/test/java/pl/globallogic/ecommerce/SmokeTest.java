@@ -69,7 +69,7 @@ public class SmokeTest extends BaseTest {
 
     //verify that product is no longer in stock is not available to add to cart
     @Test
-    public void shouldIsNotAvailableToAddToCardProductThatIsNoLongerInStock() {
+    public void shouldIsNotAvailableToAddToCartProductThatIsNoLongerInStock() {
         landingPage.visit(host);
         landingPage.searchQuery(query);
         searchPage.clickToProductImageLink();
@@ -84,10 +84,46 @@ public class SmokeTest extends BaseTest {
         searchPage.clickToProductImageLink();
         SizeType sizeType = productDetailsPage.findAvailableSize();
         productDetailsPage.selectSize(sizeType);
-        productDetailsPage.addToCard();
+        productDetailsPage.addToCart();
         productDetailsPage.closeModalWindow();
         searchPage.clickToCart();
         Assert.assertTrue(productDetailsPage.isVisibleTotalPrice());
+    }
+
+    @Test
+    public void shouldAddOneProductAndRemoveOneProductFromCart() {
+        landingPage.visit(host);
+        landingPage.searchQuery(query);
+        searchPage.clickToProductImageLink();
+        SizeType sizeType = productDetailsPage.findAvailableSize();
+        productDetailsPage.selectSize(sizeType);
+        productDetailsPage.addToCart();
+        productDetailsPage.closeModalWindow();
+        searchPage.clickToCart();
+        productDetailsPage.removeProduct();
+        Assert.assertTrue(productDetailsPage.isEmptyCart());
+    }
+    @Test
+    public void shouldAddTwoProductsAndRemoveOneProductFromCart() {
+        landingPage.visit(host);
+        landingPage.searchQuery(query);
+        searchPage.clickToProductImageLink();
+        SizeType sizeType = productDetailsPage.findAvailableSize();
+        productDetailsPage.selectSize(sizeType);
+        productDetailsPage.addToCart();
+        productDetailsPage.closeModalWindow();
+        landingPage.clickTShirts();
+        searchPage.clickToProductImageLink();
+        SizeType sizeTypeForTshirts = productDetailsPage.findAvailableSize();
+        productDetailsPage.selectSize(sizeTypeForTshirts);
+        productDetailsPage.addToCart();
+        productDetailsPage.closeModalWindow();
+        searchPage.clickToCart();
+        productDetailsPage.removeProduct();
+        System.out.println(productDetailsPage.getAmountOfProduct());
+        System.out.println(productDetailsPage.getAmountOfDifferentProduct());
+
+        //Assert.assertTrue(productDetailsPage.isEmptyCart());
     }
 
     // check if can type greater amount than available
@@ -99,7 +135,7 @@ public class SmokeTest extends BaseTest {
         SizeType sizeType = productDetailsPage.findAvailableSize();
         productDetailsPage.selectSize(sizeType);
         productDetailsPage.typeMoreQuantityThanAvailable();
-        productDetailsPage.addToCard();
+        productDetailsPage.addToCart();
         Assert.assertTrue(productDetailsPage.isVisibleIsNotEnoughProductInStockMessage());
     }
 
@@ -119,14 +155,26 @@ public class SmokeTest extends BaseTest {
         searchPage.clickToProductImageLink();
         SizeType sizeType = productDetailsPage.findAvailableSize();
         productDetailsPage.selectSize(sizeType);
-        productDetailsPage.addToCard();
+        productDetailsPage.addToCart();
         productDetailsPage.closeModalWindow();
         searchPage.clickToCart();
         BigDecimal expectedValue = productDetailsPage.getProductsPrice().add(productDetailsPage.getShippingPrice());
         BigDecimal actualValue = productDetailsPage.getTotalPrice();
         Assert.assertEquals(actualValue, expectedValue);
     }
-
+    @Test
+    public void shouldProduct(){
+        landingPage.visit(host);
+        landingPage.clickTShirts();
+        searchPage.clickToProductImageLink();
+        Assert.assertTrue(productDetailsPage.isInAppropriateTab());
+    }
+    @Test
+    public void shouldBeEmptyCartFromBeginning() {
+        landingPage.visit(host);
+        landingPage.clickToCart();
+        Assert.assertTrue(productDetailsPage.isEmptyCart());
+    }
     // verify viewed products working correctly
     @Test
     public void shouldShowViewedProduct() {
@@ -194,19 +242,20 @@ public class SmokeTest extends BaseTest {
         landingPage.redirectToSocialLink(transformedLocator);
         Assert.assertTrue(landingPage.isRedirected(expectedLink));
     }
+
     @Test
     public void shouldReceiveEmail() {
         mailReceiverSystemPage.visit(temporaryMailHost);
         mailReceiverSystemPage.acceptPersonalData();
 
-        String email= mailReceiverSystemPage.getEmailAddress();
+        String email = mailReceiverSystemPage.getEmailAddress();
         landingPage.visit(host);
         landingPage.clickContactUs();
         customerServicePage.completeForm(email);
         Assert.assertTrue(customerServicePage.hasBeenSent());
         mailReceiverSystemPage.visit(temporaryMailHost);
         mailReceiverSystemPage.pause(20);
-        //mailReceiverSystemPage.visit(mailReceiverSystemPage.getLinkToEmailMessage());
+       // mailReceiverSystemPage.visit(mailReceiverSystemPage.getLinkToEmailMessage());
         //mailReceiverSystemPage.checkMailFromShop();
         Assert.assertTrue(mailReceiverSystemPage.isDelivered());
     }

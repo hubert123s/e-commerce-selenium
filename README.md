@@ -25,6 +25,8 @@ Scenario 7: verify that product is no longer in stock is not available to add to
 
 Scenario 8: Verify add to cart
 
+Scenario 9: Verify first item from results can be removed from the cart
+
 Scenario 9: Check if can type greater amount than available
 
 Scenario 10: Check successful comparison between two products.
@@ -32,6 +34,8 @@ Scenario 10: Check successful comparison between two products.
 Scenario 11: Verify that total cost consist of total products cost and total shipping
 
 ### Others
+Scenario 12: Verify empty cart from the beginning 
+
 Scenario 12: Verify viewed products
 
 Scenario 13: Verify newsletter
@@ -50,9 +54,7 @@ Scenario 19: Verify that social media links redirects to the target page
 
 Scenario 20: Verify contact us form with file
 
-TODO 
-
-Verify first item from results can be removed from the cart
+TODO
 
 Verify that item review is available on the items details page
 

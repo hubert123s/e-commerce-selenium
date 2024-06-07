@@ -11,7 +11,6 @@ public class SearchPage extends BasePage {
     protected final By sortByButtonLocator = By.id("selectProductSort");
     protected final By notFoundResultMessage = By.cssSelector("p.alert.alert-warning");
     protected final By productImageLinkLocator = By.cssSelector("a.product_img_link");
-    protected final By cartButtonLocator = By.cssSelector("a[title='View my shopping cart']");
     protected final By viewedProductLocator = By.xpath("//div[@id='viewed-products_block_left']//div[@class='product-content']//h5/a[@class='product-name']");
 
     public SearchPage(WebDriver driver) {
@@ -41,9 +40,6 @@ public class SearchPage extends BasePage {
                 .toList();
     }
 
-    public void clickToCart() {
-        click(cartButtonLocator);
-    }
 
     public void clickToProductImageLink() {
         click(productImageLinkLocator);

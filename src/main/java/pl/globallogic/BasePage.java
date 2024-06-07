@@ -19,8 +19,10 @@ public class BasePage {
     protected final By productNameLocator = By.xpath("//ul[@class='product_list grid row']//li//h5[@itemprop='name']//a[@class='product-name']");
     protected final By productPricesLocator = By.xpath("//div[@class='right-block']//div[@class='content_price']//span[@class='price product-price']");
     protected final By alertSuccessLocator = By.cssSelector("p.alert.alert-success");
+    protected final By alertWarningLocator = By.cssSelector("p.alert.alert-warning");
     protected final By alertDangerLocator = By.cssSelector("p.alert.alert-danger");
     protected final By alertDangerDIVLocator = By.cssSelector("div.alert.alert-danger");
+    protected final By cartButtonLocator = By.cssSelector("a[title='View my shopping cart']");
     protected int timeout = 10;
 
     public BasePage(WebDriver driver) {
@@ -122,5 +124,8 @@ public class BasePage {
         String temp = RandomStringUtils.random(length, allowedChars);
         email = temp.substring(0, temp.length() - 1) + "@testdata.com";
         return email;
+    }
+    public void clickToCart() {
+        click(cartButtonLocator);
     }
 }
